@@ -1,5 +1,19 @@
 <?php
-require_once ('../../vendor/autoload.php');
+try {
+
+    if (! @include_once( '../../vendor/autoload.php' )){} // @ - to suppress warnings, 
+    // you can also use error_reporting function for the same purpose which may be a better option
+     
+    // or 
+    if (!file_exists('../../vendor/autoload.php' )){}
+     // throw new Exception ('functions.php does not exist');
+    else{
+      require_once('../../vendor/autoload.php' ); 
+    }}
+    catch(Exception $e) {    
+      require_once ('./vendor/autoload.php');
+    }
+  
 use Illuminate\Database\Capsule\Manager as Capsule;
         $capsule = new Capsule;
 

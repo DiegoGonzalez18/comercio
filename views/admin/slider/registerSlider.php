@@ -17,8 +17,8 @@ include('./views/admin/shared/vertical.php');
 <div class="container-fluid">
     <!-- Ejemplo de tabla Listado -->
     <div class="card">  
-     <div class="card-header">Input
-         <strong>Sizes</strong>
+     <div class="card-header">Registrar 
+         <strong>Slider</strong>
      </div>
  <div class="card-body">
     <form class="form-horizontal" id="registrarSlider"  method="post" action="/comercio/slider/registrarSlider/" 
@@ -60,7 +60,8 @@ $.ajax({
                  //método de envio
             
                
-                success:  function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
+                success:  function (response) {
+                    console.log(response) //una vez que el archivo recibe el request lo procesa y lo devuelve
                     alertify.alert('Comercio Internacional', 'Slider Registrado', function(){ alertify.success('Ahora lo puedes Asignar'); });
 
                 }
