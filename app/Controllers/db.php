@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Database\Capsule\Manager as DB;
 try {
 
     if (! @include_once( '../../vendor/autoload.php' )){} // @ - to suppress warnings, 
@@ -28,8 +29,9 @@ use Illuminate\Database\Capsule\Manager as Capsule;
             'prefix'    => '',
         ]);
         
-        // Make this Capsule instance available globally via static methods... (optional)
-        $capsule->setAsGlobal();
+        /*Make this Capsule instance available globally via static methods*/$capsule->setAsGlobal();
+        //Tuve que agregar esto para que funcionara el DB (Capsule)
+
         // Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
         $capsule->bootEloquent();
     

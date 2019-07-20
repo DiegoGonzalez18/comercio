@@ -9,7 +9,7 @@
     <meta name="author" content="Incanatoit.com">
     <meta name="keyword" content="Sistema ventas Laravel Vue Js, Sistema compras Laravel Vue Js">
     <link rel="shortcut icon" href=".views/assets/vendors/img/favicon.png">
-    <title>Editar Slider</title>
+    <title>Comercio Internacional</title>
     <!-- Icons --> <script src="./views/assets/vendors/js/jquery.min.js"></script>
     <link href="./views/assets/vendors/css/font-awesome.min.css" rel="stylesheet">
     <link href="./views/assets/vendors/css/simple-line-icons.min.css" rel="stylesheet">

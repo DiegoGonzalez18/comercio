@@ -12,12 +12,12 @@ include('./views/admin/shared/vertical.php');
 <ol class="breadcrumb">
     <li class="breadcrumb-item">Home</li>
     <li class="breadcrumb-item"><a href="#">Slider</a></li>
-    <li class="breadcrumb-item active">Registrar Slider</li>
+    <li class="breadcrumb-item active">Ver Slider</li>
 </ol>
 <div class="container-fluid">
     <!-- Ejemplo de tabla Listado -->
     <div class="card">  
-     <div class="card-header">Registrar 
+     <div class="card-header">Ver
          <strong>Slider</strong>
      </div>
  <div class="card-body">
@@ -59,6 +59,8 @@ include('./views/admin/shared/vertical.php');
     </table>
     
 </div>
+
+            
 </main>
 
         <!-- /Fin del contenido principal -->

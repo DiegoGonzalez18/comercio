@@ -1,5 +1,7 @@
 <?php
-
+ use Illuminate\Database\Capsule\Manager as Capsule;
+ use Illuminate\Pagination\Paginator; 
+ use Illuminate\Pagination\LengthAwarePaginator;
 try {
 
   if (! @include_once( '../../vendor/autoload.php' )){} // @ - to suppress warnings, 
@@ -15,6 +17,7 @@ try {
     require_once ('./vendor/autoload.php');
   }
 
+
 require_once 'db.php';
 
 
@@ -23,7 +26,9 @@ use App\Models\{Slider};
 class SliderController{
 
   public function registerSlider($titulo,$archivo,$nombre_archivo){
-      
+      $slider=Slider::all()->count();
+
+                     
   if(!empty($titulo)&&!empty($nombre_archivo)){
     if(!file_exists('uploads')){
         mkdir('uploads',0777,true);
@@ -34,8 +39,14 @@ class SliderController{
                 $slider = new Slider;
                 $slider->titulo = $titulo;
                 $slider->url = 'uploads/'.$nombre_archivo;
+                $as=Slider::where('url','=',$slider->url)->count();
+                if($as>0){
+                  echo -1;
+                }else{
                 $slider->save();
+
             echo 1;
+          }
         }else{
           echo 0;
         }
@@ -63,6 +74,8 @@ $a="<center><span class='badge badge-success'>Visible</span></center>";
 }
 echo $cad;
   }
+ 
+
 
   public function eliminar($id){
    
@@ -70,6 +83,7 @@ echo $cad;
  
 // Lo eliminamos de la base de datos
   if($peli->delete() ){
+    unlink($peli->url);
     echo $id;
   }else{
     echo 0;

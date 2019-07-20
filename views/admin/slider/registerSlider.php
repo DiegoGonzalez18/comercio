@@ -61,9 +61,17 @@ $.ajax({
             
                
                 success:  function (response) {
-                    console.log(response) //una vez que el archivo recibe el request lo procesa y lo devuelve
+                 
+                   if(response==1){
                     alertify.alert('Comercio Internacional', 'Slider Registrado', function(){ alertify.success('Ahora lo puedes Asignar'); });
 
+                   }else if(response ==-1){
+                    alertify.alert('Comercio Internacional', 'Error', function(){ alertify.error('La imagen ya esta en la base de datos, para subirla puedes cambiarle el nombre'); });
+
+                   }else{
+                    alertify.alert('Comercio Internacional', 'Error', function(){ alertify.error('Error con el servidor. Contacte con el administrador'); });
+
+                   }
                 }
         });
 

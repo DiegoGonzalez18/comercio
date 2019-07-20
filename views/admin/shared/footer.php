@@ -1,6 +1,6 @@
 <footer class="app-footer">
-        <span><a href="http://www.incanatoit.com/">IncanatoIT</a> &copy; 2017</span>
-        <span class="ml-auto">Desarrollado por <a href="http://www.incanatoit.com/">IncanatoIT</a></span>
+        <span><a href="#">Comercio Internacional</a></span>
+        <span class="ml-auto">Programa Académico de la Universidad Francisco de Paula Santander</span>
     </footer>
 
     <!-- Bootstrap and necessary plugins --> 
