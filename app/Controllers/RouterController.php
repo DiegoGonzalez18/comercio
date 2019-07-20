@@ -21,6 +21,8 @@ class RouterController
                 $home->load_view('registerSlider');
             }else if($_GET['r']=='slider'){
                 $home->load_view('slider');
+            }else if($_GET['r']=='asignarSlider'){
+                $home->load_view('asignarSlider');
             }
           
             }

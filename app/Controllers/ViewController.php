@@ -7,7 +7,7 @@ class ViewController
     {
         if($view=='login'||$view=='home' ){
             require_once(self::$view_patch .'admin/'. $view . '.php');
-        }else if($view=='registerSlider'||$view=='slider'){
+        }else if($view=='registerSlider'||$view=='slider'||$view=='asignarSlider'){
             require_once(self::$view_patch .'admin/slider/'. $view . '.php');
 
         } else{
@@ -15,3 +15,4 @@ class ViewController
         }
     }
 }
+ 

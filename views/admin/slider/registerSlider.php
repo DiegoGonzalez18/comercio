@@ -21,7 +21,7 @@ include('./views/admin/shared/vertical.php');
          <strong>Slider</strong>
      </div>
  <div class="card-body">
-    <form class="form-horizontal" id="registrarSlider"  method="post" action="/comercio/slider/registrarSlider/" 
+    <form class="form-horizontal" id="registrarSlider"  method="post" action="" 
     enctype="multipart/form-data">
         <div class="form-group row">
                      <label class="col-sm-5 col-form-label" for="input-small">Titulo del Slider</label>

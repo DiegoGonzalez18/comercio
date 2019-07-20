@@ -15,6 +15,8 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="slider" href="?r=slider"><i class="icon-bag"></i>Ver Slider</a>
+                            </li> <li class="nav-item">
+                                <a class="nav-link" id="slider" href="?r=asignarSlider"><i class="icon-bag"></i>Asignar Slider</a>
                             </li>
                            
                         </ul>
