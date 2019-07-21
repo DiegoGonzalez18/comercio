@@ -140,7 +140,7 @@ $.ajax({
     </script>
     <script>
     $('.editar').click(function(){
-console.log($(this).attr("id"));
+
 var formData = new FormData();
 formData.append('idEditar',$(this).attr("id"));
 $.ajax({

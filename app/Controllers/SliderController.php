@@ -81,6 +81,10 @@ public function traerDatos($id){
   $a=Slider::where('id', '=', $id)->first();
 echo json_encode($a);
 }
+public function listar (){
+  $a=Slider::all();
+echo json_encode($a);
+}
 
   public function eliminar($id){
    
@@ -192,6 +196,22 @@ foreach($r as $t){
 */
 
 }
+public function listarS(){
+  $a= Slider::get();
+  $cad="";
+foreach($a as $item){
+  $url= 'app/Controllers/'.$item['url'];
+  $cad.='<li width="1950px" height="750px"><a href"'.
+ $url.'"><img   src ="'.
+  $url.'" ><span style="font-family: inherit; font-weight: bold;">'.
+  $item['titulo'].' </span></a> </li>';
+  if($item['visible']==1){}
+  
+}
+echo $cad;
+ }
+
+
 }
 
 
@@ -230,4 +250,7 @@ $a->editaSinImagen($_POST['idEd'],$_POST['titulo']);
 
   $a= new SliderController();
   $a->asignar($_POST['arreglo']);
+}else if(isset($_POST['sliderHome'])){
+  $a= new SliderController();
+  $a->listarS();
 }

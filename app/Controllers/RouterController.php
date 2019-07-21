@@ -9,7 +9,7 @@ class RouterController
         
         $home = new ViewController();
 
-        $vista = "index";
+     
 
         if (isset($_GET['r'])) {
             if($_GET['r']=='login'){
@@ -25,6 +25,9 @@ class RouterController
                 $home->load_view('asignarSlider');
             }
           
+            }
+            else if(!isset($_GET['r'])){
+                $home->load_view('index');
             }
        
                

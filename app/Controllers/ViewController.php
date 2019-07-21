@@ -3,6 +3,7 @@ namespace App\Controllers;
 class ViewController
 {
     private static $view_patch = './views/';
+    
     public function load_view($view)
     {
         if($view=='login'||$view=='home' ){
@@ -10,8 +11,11 @@ class ViewController
         }else if($view=='registerSlider'||$view=='slider'||$view=='asignarSlider'){
             require_once(self::$view_patch .'admin/slider/'. $view . '.php');
 
+        }if($view=='index'){
+            require_once(self::$view_patch .'frontend/'. $view . '.php');
         } else{
-            require_once(self::$view_patch . $view . '.php');
+            //require_once(self::$view_patch . $view . '.php');
+            echo "hola";
         }
     }
 }
