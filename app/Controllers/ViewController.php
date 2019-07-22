@@ -11,7 +11,10 @@ class ViewController
         }else if($view=='registerSlider'||$view=='slider'||$view=='asignarSlider'){
             require_once(self::$view_patch .'admin/slider/'. $view . '.php');
 
-        }if($view=='index'){
+        }else if($view=='registerEvento'){
+            require_once(self::$view_patch .'admin/evento/'. $view . '.php');
+        }else
+            if($view=='index'){
             require_once(self::$view_patch .'frontend/'. $view . '.php');
         } else{
             //require_once(self::$view_patch . $view . '.php');

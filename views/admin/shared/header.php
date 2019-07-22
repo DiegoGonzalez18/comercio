@@ -9,6 +9,10 @@
     <meta name="author" content="Incanatoit.com">
     <meta name="keyword" content="Sistema ventas Laravel Vue Js, Sistema compras Laravel Vue Js">
     <link rel="shortcut icon" href=".views/assets/vendors/img/favicon.png">
+    <script src="https://cdn.ckeditor.com/ckeditor5/12.3.1/decoupled-document/ckeditor.js"></script>
+    
+
+
     <title>Comercio Internacional</title>
     <!-- Icons --> <script src="./views/assets/vendors/js/jquery.min.js"></script>
     <link href="./views/assets/vendors/css/font-awesome.min.css" rel="stylesheet">
@@ -28,7 +32,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css"/>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css"/>
 
-
+<script src="./ckfinder/ckfinder.js"></script>
 </head>
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">

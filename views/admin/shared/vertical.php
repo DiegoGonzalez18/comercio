@@ -21,6 +21,16 @@
                            
                         </ul>
                     </li>
+                    <li class="nav-item nav-dropdown">
+                        <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-bag"></i> Evento</a>
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a class="nav-link" id="slider" href="?r=registerEvento"><i class="icon-bag"></i>Registrar Evento</a>
+                            </li>
+                            
+                           
+                        </ul>
+                    </li>
                    
                     
                     

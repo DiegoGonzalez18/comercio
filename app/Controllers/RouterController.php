@@ -24,6 +24,9 @@ class RouterController
             }else if($_GET['r']=='asignarSlider'){
                 $home->load_view('asignarSlider');
             }
+            else if($_GET['r']=='registerEvento'){
+                $home->load_view('registerEvento');
+            }
           
             }
             else if(!isset($_GET['r'])){
