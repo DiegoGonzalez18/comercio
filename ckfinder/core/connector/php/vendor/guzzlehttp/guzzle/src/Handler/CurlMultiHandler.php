@@ -37,14 +37,8 @@ class CurlMultiHandler
     {
         $this->factory = isset($options['handle_factory'])
             ? $options['handle_factory'] : new CurlFactory(50);
-
-        if (isset($options['select_timeout'])) {
-            $this->selectTimeout = $options['select_timeout'];
-        } elseif ($selectTimeout = getenv('GUZZLE_CURL_SELECT_TIMEOUT')) {
-            $this->selectTimeout = $selectTimeout;
-        } else {
-            $this->selectTimeout = 1;
-        }
+        $this->selectTimeout = isset($options['select_timeout'])
+            ? $options['select_timeout'] : 1;
     }
 
     public function __get($name)

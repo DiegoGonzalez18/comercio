@@ -23,7 +23,8 @@
         "mtdowling/jmespath.php": "~2.2",
         "ext-pcre": "*",
         "ext-json": "*",
-        "ext-simplexml": "*"
+        "ext-simplexml": "*",
+        "ext-spl": "*"
     },
     "require-dev": {
         "ext-openssl": "*",

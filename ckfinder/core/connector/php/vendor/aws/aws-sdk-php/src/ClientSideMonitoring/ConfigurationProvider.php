@@ -232,7 +232,7 @@ class ConfigurationProvider
             if (!is_readable($filename)) {
                 return self::reject("Cannot read CSM config from $filename");
             }
-            $data = \Aws\parse_ini_file($filename, true);
+            $data = parse_ini_file($filename, true);
             if ($data === false) {
                 return self::reject("Invalid config file: $filename");
             }

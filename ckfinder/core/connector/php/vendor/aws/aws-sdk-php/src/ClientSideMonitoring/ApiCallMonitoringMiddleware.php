@@ -15,19 +15,6 @@ class ApiCallMonitoringMiddleware extends AbstractMonitoringMiddleware
 {
 
     /**
-     * Api Call Attempt event keys for each Api Call event key
-     *
-     * @var array
-     */
-    private static $eventKeys = [
-        'FinalAwsException' => 'AwsException',
-        'FinalAwsExceptionMessage' => 'AwsExceptionMessage',
-        'FinalSdkException' => 'SdkException',
-        'FinalSdkExceptionMessage' => 'SdkExceptionMessage',
-        'FinalHttpStatusCode' => 'HttpStatusCode',
-    ];
-
-    /**
      * Standard middleware wrapper function with CSM options passed in.
      *
      * @param callable $credentialProvider
@@ -72,20 +59,20 @@ class ApiCallMonitoringMiddleware extends AbstractMonitoringMiddleware
     public static function getResponseData($klass)
     {
         if ($klass instanceof ResultInterface) {
-            $data = [
+            return [
                 'AttemptCount' => self::getResultAttemptCount($klass),
                 'MaxRetriesExceeded' => 0,
             ];
-        } elseif ($klass instanceof \Exception) {
-            $data = [
+        }
+
+        if ($klass instanceof \Exception) {
+            return [
                 'AttemptCount' => self::getExceptionAttemptCount($klass),
                 'MaxRetriesExceeded' => self::getMaxRetriesExceeded($klass),
             ];
-        } else {
-            throw new \InvalidArgumentException('Parameter must be an instance of ResultInterface or Exception.');
         }
 
-        return $data + self::getFinalAttemptData($klass);
+        throw new \InvalidArgumentException('Parameter must be an instance of ResultInterface or Exception.');
     }
 
     private static function getResultAttemptCount(ResultInterface $result) {
@@ -107,38 +94,6 @@ class ApiCallMonitoringMiddleware extends AbstractMonitoringMiddleware
 
         }
         return $attemptCount;
-    }
-
-    private static function getFinalAttemptData($klass)
-    {
-        $data = [];
-        if ($klass instanceof MonitoringEventsInterface) {
-            $finalAttempt = self::getFinalAttempt($klass->getMonitoringEvents());
-
-            if (!empty($finalAttempt)) {
-                foreach (self::$eventKeys as $callKey => $attemptKey) {
-                    if (isset($finalAttempt[$attemptKey])) {
-                        $data[$callKey] = $finalAttempt[$attemptKey];
-                    }
-                }
-            }
-        }
-
-        return $data;
-    }
-
-    private static function getFinalAttempt(array $events)
-    {
-        for (end($events); key($events) !== null; prev($events)) {
-            $current = current($events);
-            if (isset($current['Type'])
-                && $current['Type'] === 'ApiCallAttempt'
-            ) {
-                return $current;
-            }
-        }
-
-        return null;
     }
 
     private static function getMaxRetriesExceeded($klass)

@@ -150,8 +150,6 @@ use Aws\AwsClient;
  * @method \GuzzleHttp\Promise\Promise getPatchBaselineAsync(array $args = [])
  * @method \Aws\Result getPatchBaselineForPatchGroup(array $args = [])
  * @method \GuzzleHttp\Promise\Promise getPatchBaselineForPatchGroupAsync(array $args = [])
- * @method \Aws\Result getServiceSetting(array $args = [])
- * @method \GuzzleHttp\Promise\Promise getServiceSettingAsync(array $args = [])
  * @method \Aws\Result labelParameterVersion(array $args = [])
  * @method \GuzzleHttp\Promise\Promise labelParameterVersionAsync(array $args = [])
  * @method \Aws\Result listAssociationVersions(array $args = [])
@@ -196,8 +194,6 @@ use Aws\AwsClient;
  * @method \GuzzleHttp\Promise\Promise registerTaskWithMaintenanceWindowAsync(array $args = [])
  * @method \Aws\Result removeTagsFromResource(array $args = [])
  * @method \GuzzleHttp\Promise\Promise removeTagsFromResourceAsync(array $args = [])
- * @method \Aws\Result resetServiceSetting(array $args = [])
- * @method \GuzzleHttp\Promise\Promise resetServiceSettingAsync(array $args = [])
  * @method \Aws\Result resumeSession(array $args = [])
  * @method \GuzzleHttp\Promise\Promise resumeSessionAsync(array $args = [])
  * @method \Aws\Result sendAutomationSignal(array $args = [])
@@ -232,7 +228,5 @@ use Aws\AwsClient;
  * @method \GuzzleHttp\Promise\Promise updateManagedInstanceRoleAsync(array $args = [])
  * @method \Aws\Result updatePatchBaseline(array $args = [])
  * @method \GuzzleHttp\Promise\Promise updatePatchBaselineAsync(array $args = [])
- * @method \Aws\Result updateServiceSetting(array $args = [])
- * @method \GuzzleHttp\Promise\Promise updateServiceSettingAsync(array $args = [])
  */
 class SsmClient extends AwsClient {}

@@ -21,7 +21,7 @@ include('./views/admin/shared/vertical.php');
          <strong>Evento</strong>
      </div>
  <div class="card-body">
-    <form class="form-horizontal" id="r"  method="post" action="" 
+    <form class="form-horizontal" id="registrarSlider"  method="post" action="" 
     enctype="multipart/form-data">
         <div class="form-group row">
                      <label class="col-sm-5 col-form-label" for="input-small">Titulo del Evento</label>
@@ -43,64 +43,126 @@ include('./views/admin/shared/vertical.php');
                      <input type="file" name="archivo" id="archivo">
 
         </div></div>
-        <div id="toolbar-container"></div>
-
-<!-- This container will become the editable. --><br>
-<div id="editor" name="diego">
-    <p>This is the initial editor content.</p>
-</div>
+        <textarea cols="80" id="editor1" name="editor1"  rows="10" data-sample-short>&lt;p&gt;This is some &lt;strong&gt;sample text&lt;/strong&gt;. You are using &lt;a href=&quot;https://ckeditor.com/&quot;&gt;CKEditor&lt;/a&gt;.&lt;/p&gt;</textarea>
+ 
        
      <br>
         
-        <button class="btn btn-sm btn-primary" id="enviarSliderx" type="submit">
+        <button class="btn btn-sm btn-primary" id="enviarEvento" type="submit">
 <i class="fa fa-dot-circle-o" ></i> Submit</button>
        
     </form>
 </div>
-</main> <?php if(isset($_POST['diego'])){
-    echo $_POST['diego'];
-}
-
-?>
+</main> 
+<div class="r"></div>
 <script>
-    DecoupledEditor
-    
-        .create( document.querySelector( '#editor' ) ,{
-            
-            filebrowserBrowseUrl: './ckfinder/ckfinder.html',
-     filebrowserImageBrowseUrl: './ckfinder/ckfinder.html?type=Images',
-     filebrowserFlashBrowseUrl:'./ckfinder/ckfinder.html?type=Flash',
-     filebrowserUploadUrl: './ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-     filebrowserImageUploadUrl: './ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-     filebrowserFlashUploadUrl: './ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash',
+    CKEDITOR.addCss('.cke_editable { font-size: 15px; padding: 2em; }');
 
-            ckfinder: {
-			uploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
-		},
-		toolbar: [ 'ckfinder', 'imageUpload', '|', 'heading', '|', 'bold', 'italic', '|', 'undo', 'redo' ]
-	} )
-        
-        .then( editor => {
-            const toolbarContainer = document.querySelector( '#toolbar-container' );
+    CKEDITOR.replace('editor1', {
+      toolbar: [{
+          name: 'document',
+          items: ['Print']
+        },
+        {
+          name: 'clipboard',
+          items: ['Undo', 'Redo']
+        },
+        {
+          name: 'styles',
+          items: ['Format', 'Font', 'FontSize']
+        },
+        {
+          name: 'colors',
+          items: ['TextColor', 'BGColor']
+        },
+        {
+          name: 'align',
+          items: ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']
+        },
+        '/',
+        {
+          name: 'basicstyles',
+          items: ['Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat', 'CopyFormatting']
+        },
+        {
+          name: 'links',
+          items: ['Link', 'Unlink']
+        },
+        {
+          name: 'paragraph',
+          items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote']
+        },
+        {
+          name: 'insert',
+          items: ['Image', 'Table']
+        },
+        {
+          name: 'tools',
+          items: ['Maximize']
+        },
+        {
+          name: 'editing',
+          items: ['Scayt']
+        }
+      ],
 
-            toolbarContainer.appendChild( editor.ui.view.toolbar.element );
-        
-        } )
-        .catch( error => {
-            console.error( error );
-        } );
-</script>
+      extraAllowedContent: 'h3{clear};h2{line-height};h2 h3{margin-left,margin-top}',
+
+      // Adding drag and drop image upload.
+      extraPlugins: 'print,format,font,colorbutton,justify,uploadimage',
+      uploadUrl: './ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
+
+      // Configure your file manager integration. This example uses CKFinder 3 for PHP.
+      filebrowserBrowseUrl: './ckfinder/ckfinder.html',
+      filebrowserImageBrowseUrl: './ckfinder/ckfinder.html?type=Images',
+      filebrowserUploadUrl: './ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+      filebrowserImageUploadUrl: './ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+
+      height: 560,
+
+      removeDialogTabs: 'image:advanced;link:advanced'
+    });
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script>
- $("#enviarSlider").click(function(){
+ $("#enviarEvento").click(function(){
     event.preventDefault();
+    var contenido = CKEDITOR.instances['editor1'].getData();
+    console.log($('#registrarSlider').serialize());
     
     var formData = new FormData(document.getElementById("registrarSlider"));
+    formData.append('a',contenido);
    if(($('#titulo').val().length > 0) &&  (document.getElementById("archivo").files.length > 0)){
- 
+     
 $.ajax({
     type:  'POST',
                 //datos que se envian a traves de ajax
-                url:   'app/Controllers/SliderController.php',
+                url:   'app/Controllers/EventoController.php',
                 data: formData,
                 contentType: false,
                 processData: false,
@@ -109,17 +171,8 @@ $.ajax({
             
                
                 success:  function (response) {
-                 
-                   if(response==1){
-                    alertify.alert('Comercio Internacional', 'Slider Registrado', function(){ alertify.success('Ahora lo puedes Asignar'); });
-
-                   }else if(response ==-1){
-                    alertify.alert('Comercio Internacional', 'Error', function(){ alertify.error('La imagen ya esta en la base de datos, para subirla puedes cambiarle el nombre'); });
-
-                   }else{
-                    alertify.alert('Comercio Internacional', 'Error', function(){ alertify.error('Error con el servidor. Contacte con el administrador'); });
-
-                   }
+               $('.r').append(response);
+                   
                 }
         });
 

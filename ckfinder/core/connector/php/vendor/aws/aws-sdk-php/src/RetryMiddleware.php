@@ -51,25 +51,12 @@ class RetryMiddleware
     /**
      * Creates a default AWS retry decider function.
      *
-     * The optional $additionalRetryConfig parameter is an associative array
-     * that specifies additional retry conditions on top of the ones specified
-     * by default by the Aws\RetryMiddleware class, with the following keys:
-     *
-     * - errorCodes: (string[]) An indexed array of AWS exception codes to retry.
-     *   Optional.
-     * - statusCodes: (int[]) An indexed array of HTTP status codes to retry.
-     *   Optional.
-     * - curlErrors: (int[]) An indexed array of Curl error codes to retry. Note
-     *   these should be valid Curl constants. Optional.
-     *
      * @param int $maxRetries
-     * @param array $additionalRetryConfig
+     *
      * @return callable
      */
-    public static function createDefaultDecider(
-        $maxRetries = 3,
-        $additionalRetryConfig = []
-    ) {
+    public static function createDefaultDecider($maxRetries = 3)
+    {
         $retryCurlErrors = [];
         if (extension_loaded('curl')) {
             $retryCurlErrors[CURLE_RECV_ERROR] = true;
@@ -81,18 +68,13 @@ class RetryMiddleware
             RequestInterface $request,
             ResultInterface $result = null,
             $error = null
-        ) use ($maxRetries, $retryCurlErrors, $additionalRetryConfig) {
+        ) use ($maxRetries, $retryCurlErrors) {
             // Allow command-level options to override this value
             $maxRetries = null !== $command['@retries'] ?
                 $command['@retries']
                 : $maxRetries;
 
-            $isRetryable = self::isRetryable(
-                $result,
-                $error,
-                $retryCurlErrors,
-                $additionalRetryConfig
-            );
+            $isRetryable = self::isRetryable($result, $error, $retryCurlErrors);
 
             if ($retries >= $maxRetries) {
                 if (!empty($error)
@@ -108,40 +90,10 @@ class RetryMiddleware
         };
     }
 
-    private static function isRetryable(
-        $result,
-        $error,
-        $retryCurlErrors,
-        $additionalRetryConfig = []
-    ) {
-        $errorCodes = self::$retryCodes;
-        if (!empty($additionalRetryConfig['errorCodes'])
-            && is_array($additionalRetryConfig['errorCodes'])
-        ) {
-            foreach($additionalRetryConfig['errorCodes'] as $code) {
-                $errorCodes[$code] = true;
-            }
-        }
-
-        $statusCodes = self::$retryStatusCodes;
-        if (!empty($additionalRetryConfig['statusCodes'])
-            && is_array($additionalRetryConfig['statusCodes'])
-        ) {
-            foreach($additionalRetryConfig['statusCodes'] as $code) {
-                $statusCodes[$code] = true;
-            }
-        }
-
-        if (!empty($additionalRetryConfig['curlErrors'])
-            && is_array($additionalRetryConfig['curlErrors'])
-        ) {
-            foreach($additionalRetryConfig['curlErrors'] as $code) {
-                $retryCurlErrors[$code] = true;
-            }
-        }
-
+    private static function isRetryable($result, $error, $retryCurlErrors)
+    {
         if (!$error) {
-            return isset($statusCodes[$result['@metadata']['statusCode']]);
+            return isset(self::$retryStatusCodes[$result['@metadata']['statusCode']]);
         }
 
         if (!($error instanceof AwsException)) {
@@ -152,11 +104,11 @@ class RetryMiddleware
             return true;
         }
 
-        if (isset($errorCodes[$error->getAwsErrorCode()])) {
+        if (isset(self::$retryCodes[$error->getAwsErrorCode()])) {
             return true;
         }
 
-        if (isset($statusCodes[$error->getStatusCode()])) {
+        if (isset(self::$retryStatusCodes[$error->getStatusCode()])) {
             return true;
         }
 

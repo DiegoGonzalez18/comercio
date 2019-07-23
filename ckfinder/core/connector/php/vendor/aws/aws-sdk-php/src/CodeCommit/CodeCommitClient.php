@@ -10,8 +10,6 @@ use Aws\AwsClient;
  * @method \GuzzleHttp\Promise\Promise batchGetRepositoriesAsync(array $args = [])
  * @method \Aws\Result createBranch(array $args = [])
  * @method \GuzzleHttp\Promise\Promise createBranchAsync(array $args = [])
- * @method \Aws\Result createCommit(array $args = [])
- * @method \GuzzleHttp\Promise\Promise createCommitAsync(array $args = [])
  * @method \Aws\Result createPullRequest(array $args = [])
  * @method \GuzzleHttp\Promise\Promise createPullRequestAsync(array $args = [])
  * @method \Aws\Result createRepository(array $args = [])

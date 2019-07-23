@@ -4,7 +4,6 @@ namespace Aws\DynamoDb;
 use Aws\Api\Parser\Crc32ValidatingParser;
 use Aws\AwsClient;
 use Aws\ClientResolver;
-use Aws\Exception\AwsException;
 use Aws\HandlerList;
 use Aws\Middleware;
 use Aws\RetryMiddleware;
@@ -70,10 +69,6 @@ use Aws\RetryMiddleware;
  * @method \GuzzleHttp\Promise\Promise restoreTableToPointInTimeAsync(array $args = []) (supported in versions 2012-08-10)
  * @method \Aws\Result tagResource(array $args = []) (supported in versions 2012-08-10)
  * @method \GuzzleHttp\Promise\Promise tagResourceAsync(array $args = []) (supported in versions 2012-08-10)
- * @method \Aws\Result transactGetItems(array $args = []) (supported in versions 2012-08-10)
- * @method \GuzzleHttp\Promise\Promise transactGetItemsAsync(array $args = []) (supported in versions 2012-08-10)
- * @method \Aws\Result transactWriteItems(array $args = []) (supported in versions 2012-08-10)
- * @method \GuzzleHttp\Promise\Promise transactWriteItemsAsync(array $args = []) (supported in versions 2012-08-10)
  * @method \Aws\Result untagResource(array $args = []) (supported in versions 2012-08-10)
  * @method \GuzzleHttp\Promise\Promise untagResourceAsync(array $args = []) (supported in versions 2012-08-10)
  * @method \Aws\Result updateContinuousBackups(array $args = []) (supported in versions 2012-08-10)
@@ -122,10 +117,7 @@ class DynamoDbClient extends AwsClient
 
         $list->appendSign(
             Middleware::retry(
-                RetryMiddleware::createDefaultDecider(
-                    $value,
-                    ['errorCodes' => ['TransactionInProgressException']]
-                ),
+                RetryMiddleware::createDefaultDecider($value),
                 function ($retries) {
                     return $retries
                         ? RetryMiddleware::exponentialDelay($retries) / 2
